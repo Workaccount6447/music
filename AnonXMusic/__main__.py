@@ -1,5 +1,8 @@
 import asyncio
 import importlib
+import threading
+import os
+from flask import Flask
 
 from pyrogram import idle
 from pytgcalls.exceptions import NoActiveGroupCall
@@ -11,6 +14,21 @@ from AnonXMusic.misc import sudo
 from AnonXMusic.plugins import ALL_MODULES
 from AnonXMusic.utils.database import get_banned_users, get_gbanned
 from config import BANNED_USERS
+
+# Flask app
+web_app = Flask(__name__)
+
+@web_app.route("/")
+def home():
+    return "AnonXMusic Bot Running"
+
+def run():
+    port = int(os.environ.get("PORT", 8000))
+    web_app.run(host="0.0.0.0", port=port)
+
+# Start Flask in thread
+threading.Thread(target=run).start()
+
 
 async def init():
     if (
