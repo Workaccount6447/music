@@ -9,6 +9,7 @@ WORKDIR /app/
 RUN apt-get update \
     && apt-get install -y --no-install-recommends curl ca-certificates bash ffmpeg git zip build-essential python3-dev libssl-dev libffi-dev pkg-config \
     && uv sync --frozen --no-install-project \
+    && pip install flask \
     && apt-get remove -y --purge build-essential python3-dev libssl-dev libffi-dev pkg-config \
     && apt-get autoremove -y \
     && apt-get clean \
@@ -16,5 +17,7 @@ RUN apt-get update \
 
 # Add .venv/bin to PATH
 ENV PATH="/app/.venv/bin:$PATH"
+
+EXPOSE 8000
 
 CMD ["bash", "start"]
