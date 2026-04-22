@@ -9,7 +9,7 @@ WORKDIR /app/
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl ca-certificates bash ffmpeg git zip \
+    curl ca-certificates bash ffmpeg zip \
     build-essential python3-dev libssl-dev libffi-dev pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
