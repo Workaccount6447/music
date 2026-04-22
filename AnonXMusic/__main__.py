@@ -35,8 +35,12 @@ def start_bot():
 
 # ====== MAIN ENTRY POINT ======
 if __name__ == "__main__":
-    # Run bot in background thread
-    threading.Thread(target=start_bot).start()
+    bot_thread = threading.Thread(target=start_bot, daemon=True)
+    bot_thread.start()
 
-    # Run Flask as main process (VERY IMPORTANT)
-    web.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
+    web.run(
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 8000)),
+        debug=False,
+        use_reloader=False
+)
